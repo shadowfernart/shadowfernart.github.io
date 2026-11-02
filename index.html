@@ -1,0 +1,668 @@
+<!doctype html>
+<html lang="vi" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <script>
+      /* =====================================================================
+         HƯỚNG DẪN SỬA NỘI DUNG TRANG (dành cho chủ studio)
+         ---------------------------------------------------------------------
+         Toàn bộ chữ, đường link và tên file ảnh của trang nằm trong đối tượng
+         SITE_CONTENT ngay bên dưới. Chỉ cần sửa ở đây, không cần đụng phần khác.
+
+         1. SỬA CHỮ: sửa chữ nằm giữa hai dấu ngoặc kép "...". Giữ nguyên dấu
+            ngoặc kép và dấu phẩy ở cuối dòng. Nếu trong câu cần dấu ngoặc kép,
+            dùng “ ” (ngoặc kép cong) thay cho ".
+            - Chữ tiếng Việt nằm trong phần  vi: { ... }
+            - Chữ tiếng Anh nằm trong phần   en: { ... }
+            Sửa một bên thì nhớ sửa bên còn lại cho khớp.
+
+         2. ĐỔI LINK: tìm phần  links:  và thay địa chỉ trong ngoặc kép,
+            ví dụ  facebook: "https://www.facebook.com/shadowfernart",
+
+         3. ĐỔI ẢNH: chép file ảnh mới vào cùng thư mục với index.html, rồi
+            thay tên file ở dòng  file: "ten_anh.jpg",  (đúng cả chữ hoa/thường
+            và đuôi .jpg / .png). Nhớ sửa luôn alt (mô tả ảnh) và caption.
+            Với ảnh MỚI, thêm một dòng vào "Kho ảnh" (div id="x-media", ngay
+            sau thẻ <body>), ví dụ:
+              <img data-key="ten_anh" src="ten_anh.jpg" alt="" />
+            (data-key là tên file không có đuôi). Thiếu dòng này ảnh sẽ không
+            hiện khi trang được đóng gói.
+
+         4. ĐỔI TÌNH TRẠNG / GIÁ của một tác phẩm: trong phần artworks, sửa
+              vi: status: "Đã có chủ",   en: status: "Collected",
+              vi: price: "Giá: 50.000.000 đ",   en: price: "Price: ...",
+
+         5. THÊM TÁC PHẨM THỨ BA: trong mảng  artworks: [ ... ]  hãy chép
+            nguyên một khối { ... } của một tác phẩm (từ dấu { đến dấu }, kèm
+            dấu phẩy phía sau), dán ngay sau khối cuối cùng, rồi đổi id (viết
+            thường, không dấu, không khoảng trắng, ví dụ "dawn"), tên, số hiệu,
+            chữ và ảnh. Menu, mục Chứng nhận và bố cục tự cập nhật.
+            Trong ảnh: place "top" = ảnh lớn đầu tiên, "wide" = ảnh ngang
+            rộng, "detail" = hàng ảnh chi tiết.
+
+         6. Chữ {works} trong câu sẽ tự thay bằng tên các tác phẩm.
+
+         7. SỬA CÂU CHUYỆN (story) của tác phẩm: trong khối của tác phẩm, sửa
+              vi: story: "...",   en: story: "...",
+            Đây là đoạn chữ lớn hiện ngay cạnh ảnh tác phẩm.
+
+         8. SỬA THÔNG SỐ / SPECIFICATIONS (bảng mở ra khi bấm "Thông số"):
+            - Mỗi tác phẩm có hai danh sách:  livingSubject: [ ... ]  (nhóm
+              "Living Subject") và  specification: [ ... ]  (nhóm "Thông số kỹ
+              thuật"). Mỗi dòng có dạng:
+                { key: "glass", value: "Clear Glass 8 mm" },
+            - value: giá trị, viết tiếng Anh, hiện giống nhau ở cả hai ngôn ngữ.
+            - key: mã của nhãn. Nhãn tiếng Việt / tiếng Anh nằm chung ở phần
+              specLabels:  (gần đầu SITE_CONTENT), ví dụ
+                glass: { vi: "Kính", en: "Glass" },
+            - XOÁ một thông số: xoá cả dòng { key: ..., value: ... }, của nó.
+            - THÊM một thông số: chép một dòng, đổi key và value. Nếu là nhãn
+              mới, thêm một dòng vào specLabels với key đó, ví dụ
+                warranty: { vi: "Bảo hành", en: "Warranty" },
+            - Tên hai nhóm và tên nút nằm trong specLabels ở các dòng
+              panel, groupSubject, groupSpec.
+         ===================================================================== */
+      var SITE_CONTENT = {
+        /* ---------- ĐƯỜNG LINK ---------- */
+        links: {
+          message: "https://www.facebook.com/shadowfernart", // nút "Sở hữu tác phẩm này" và "Nhắn tin"
+          facebook: "https://www.facebook.com/shadowfernart",
+          instagram: "https://www.instagram.com/shadowfernart",
+          threads: "https://www.threads.net/@shadowfernart",
+          youtube: "https://www.youtube.com/@shadowfernart",
+        },
+
+        /* ---------- ẢNH CHUNG ---------- */
+        images: {
+          logo: "logo.png",
+          hero: "hero_whisper.jpg",
+          seals: [
+            {
+              file: "seal_certificate.jpg",
+              vi: { alt: "Con dấu sáp trên thư chứng nhận", caption: "Con dấu sáp Shadow Fern" },
+              en: { alt: "A wax seal on the certificate letter", caption: "The Shadow Fern wax seal" },
+            },
+            {
+              file: "wax_seal_hands.jpg",
+              vi: { alt: "Đôi tay niêm phong phong bì bằng sáp", caption: "Niêm phong bằng tay" },
+              en: { alt: "Hands sealing an envelope with wax", caption: "Sealed by hand" },
+            },
+          ],
+        },
+
+        /* ---------- NHÃN THÔNG SỐ (dùng chung cho mọi tác phẩm) ---------- */
+        specLabels: {
+          panel: { vi: "Thông số", en: "Specifications" },
+          groupSubject: { vi: "Living Subject", en: "Living Subject" },
+          groupSpec: { vi: "Thông số kỹ thuật", en: "Specification" },
+          livingSubject: { vi: "Living Subject", en: "Living Subject" },
+          propagation: { vi: "Nhân giống", en: "Propagation" },
+          age: { vi: "Tuổi", en: "Age" },
+          mounted: { vi: "Gắn lên tác phẩm", en: "Mounted" },
+          glassBox: { vi: "Hộp kính", en: "Glass box" },
+          topper: { vi: "Nắp gỗ", en: "Wooden topper" },
+          stand: { vi: "Chân đế gỗ", en: "Wooden display stand" },
+          glass: { vi: "Kính", en: "Glass" },
+          background: { vi: "Phông nền", en: "Background" },
+          ground: { vi: "Lớp nền", en: "Ground layer" },
+          lighting: { vi: "Ánh sáng", en: "Lighting" },
+          photoperiod: { vi: "Thời gian chiếu sáng", en: "Photoperiod" },
+          water: { vi: "Tưới nước", en: "Water" },
+          ventilation: { vi: "Thông gió", en: "Ventilation" },
+          humidity: { vi: "Độ ẩm", en: "Humidity" },
+          power: { vi: "Nguồn điện", en: "Power" },
+          weight: { vi: "Trọng lượng", en: "Weight" },
+          design: { vi: "Thiết kế", en: "Design" },
+        },
+
+        /* Dòng cuối của chứng nhận (giữ tiếng Anh ở cả hai ngôn ngữ) */
+        certificateLine: "This certificate records the identity of this Living Artwork. Time will continue its story.",
+        quote: "Time will continue its story.",
+
+        /* ---------- CHỮ TIẾNG VIỆT ---------- */
+        vi: {
+          pageTitle: "Shadow Fern — Living Artwork",
+          ui: { home: "Shadow Fern, về đầu trang", logoAlt: "Logo Shadow Fern", menu: "Mục lục", language: "Ngôn ngữ", quote: "Trích dẫn", works: " và " },
+          nav: { works: "Tác phẩm", about: "Living Artwork", certificate: "Chứng nhận", collect: "Sở hữu", connect: "Kết nối" },
+          hero: {
+            eyebrow: "Shadow Fern · Sài Gòn",
+            title: "Living Artwork",
+            subtitle: "Tác phẩm nghệ thuật sống, không dừng lại khi hoàn thành.",
+            button: "Xem tác phẩm",
+            imageAlt: "Nhành dương xỉ cam của WHISPER trong màn sương",
+          },
+          about: {
+            eyebrow: "Living Artwork là gì",
+            title: "Shadow Fern không bán cây. Shadow Fern tạo ra Living Artwork.",
+            paragraphs: [
+              "Một bức tranh treo tường hoàn thành vào ngày hoạ sĩ ký tên. Living Artwork thì bắt đầu từ ngày đó.",
+              "Mỗi tác phẩm của Shadow Fern là một thế giới khép kín sau lớp kính: gỗ, vỏ cây, đá, rêu, ánh sáng và sương. Ở trung tâm là một Living Subject, một sinh thể sống tiếp tục viết câu chuyện của tác phẩm qua từng tháng, từng năm.",
+              "Không có hai tác phẩm giống nhau. Mỗi tác phẩm là độc bản, có tên, số hiệu và chứng nhận riêng.",
+            ],
+            cards: [
+              { title: "Độc bản", text: "Mỗi tác phẩm chỉ có một." },
+              { title: "Tự vận hành", text: "Ánh sáng, sương và gió được lập trình, điều khiển qua ứng dụng." },
+              { title: "Thay đổi theo thời gian", text: "Tác phẩm không bao giờ đứng yên." },
+            ],
+          },
+          specs: { title: "Tên tác phẩm", series: "Series", number: "Số hiệu", subject: "Living Subject", completed: "Hoàn thành", passport: "Digital Passport" },
+          artwork: { statusLabel: "Tình trạng", acquire: "Sở hữu tác phẩm này" },
+          certificate: {
+            eyebrow: "Chứng nhận",
+            title: "Mỗi tác phẩm rời studio cùng danh tính riêng.",
+            paragraphs: [
+              "Mỗi Living Artwork rời studio cùng một chứng nhận riêng, ghi lại danh tính của tác phẩm: tên, series, số hiệu, Living Subject và ngày hoàn thành.",
+              "Chứng nhận được niêm phong bằng sáp và con dấu Shadow Fern. Dòng cuối của mỗi chứng nhận:",
+            ],
+            captionPrefix: "Chứng nhận",
+            altPrefix: "Chứng nhận của",
+          },
+          collect: {
+            eyebrow: "Sở hữu",
+            title: "Sở hữu một Living Artwork",
+            steps: [
+              "Nhắn tin cho studio về tác phẩm bạn muốn",
+              "Trao đổi không gian đặt tác phẩm, cách chăm và vận hành",
+              "Nhận tác phẩm kèm chứng nhận niêm phong sáp và Digital Passport",
+            ],
+            note: "Hiện giao và lắp đặt tại TP. Hồ Chí Minh.",
+          },
+          connect: {
+            eyebrow: "Kết nối",
+            title: "Theo dõi tác phẩm lớn lên theo thời gian.",
+            text: "Theo dõi để xem {works} thay đổi theo thời gian. Muốn hỏi về tác phẩm, cứ nhắn tin cho Shadow Fern.",
+            message: "Nhắn tin cho Shadow Fern",
+          },
+          footer: "© 2026 Shadow Fern · Living Artwork · Sài Gòn",
+        },
+
+        /* ---------- CHỮ TIẾNG ANH ---------- */
+        en: {
+          pageTitle: "Shadow Fern — Living Artwork",
+          ui: { home: "Shadow Fern, back to top", logoAlt: "Shadow Fern logo", menu: "Contents", language: "Language", quote: "Quote", works: " and " },
+          nav: { works: "Works", about: "Living Artwork", certificate: "Certificate", collect: "Collect", connect: "Connect" },
+          hero: {
+            eyebrow: "Shadow Fern · Saigon",
+            title: "Living Artwork",
+            subtitle: "Living art that keeps going after it's finished.",
+            button: "View the works",
+            imageAlt: "WHISPER's orange fern fronds in the mist",
+          },
+          about: {
+            eyebrow: "What is a Living Artwork",
+            title: "Shadow Fern doesn't sell plants. Shadow Fern creates Living Artwork.",
+            paragraphs: [
+              "A painting is finished the day the artist signs it. A Living Artwork begins on that day.",
+              "Each Shadow Fern work is a closed world behind glass: wood, bark, stone, moss, light and mist. At its heart is a Living Subject, a living being that keeps writing the work's story month by month, year by year.",
+              "No two works are alike. Each is one of a kind, with its own name, number and certificate.",
+            ],
+            cards: [
+              { title: "One of a kind", text: "Each work exists only once." },
+              { title: "Self-running", text: "Light, mist and air are programmed and controlled through an app." },
+              { title: "Changing over time", text: "The work never stands still." },
+            ],
+          },
+          specs: { title: "Title", series: "Series", number: "Number", subject: "Living Subject", completed: "Completed", passport: "Digital Passport" },
+          artwork: { statusLabel: "Status", acquire: "Acquire this work" },
+          certificate: {
+            eyebrow: "Certificate",
+            title: "Every work leaves the studio with its own identity.",
+            paragraphs: [
+              "Every Living Artwork leaves the studio with its own certificate, recording the work's identity: title, series, number, Living Subject and completion date.",
+              "The certificate is sealed with wax and the Shadow Fern stamp. The last line of every certificate:",
+            ],
+            captionPrefix: "Certificate",
+            altPrefix: "Certificate of",
+          },
+          collect: {
+            eyebrow: "Collect",
+            title: "Collecting a Living Artwork",
+            steps: [
+              "Message the studio about the work",
+              "Discuss the space, care and operation",
+              "Receive the work with its wax-sealed certificate and Digital Passport",
+            ],
+            note: "Currently delivered and installed in Ho Chi Minh City.",
+          },
+          connect: {
+            eyebrow: "Connect",
+            title: "Follow the works as they grow over time.",
+            text: "Follow along to watch {works} change over time. To ask about a work, just message Shadow Fern.",
+            message: "Message Shadow Fern",
+          },
+          footer: "© 2026 Shadow Fern · Living Artwork · Saigon",
+        },
+
+        /* ---------- CÁC TÁC PHẨM (chép một khối { ... } để thêm tác phẩm) ---------- */
+        artworks: [
+          {
+            id: "quiet",
+            name: "QUIET",
+            series: "Wood Series",
+            number: "SF-WS-001",
+            subject: "Platycerium willinckii 'Nano'",
+            passport: "V1.0",
+            certificate: "cert_quiet.png",
+            vi: {
+              completed: "23/07/2026",
+              story: "QUIET là khoảnh khắc chuyển mình vô hình giữa nghỉ ngơi và sinh trưởng. Tác phẩm nhắc rằng thiên nhiên không chạy đua với thời gian, nhưng tạo ra vẻ đẹp mà chính thời gian không thể thay thế.",
+              status: "Còn sẵn",
+              price: "Giá: liên hệ",
+            },
+            en: {
+              completed: "23 July 2026",
+              story: "QUIET represents the invisible transition between rest and growth. It reminds us that nature does not compete with time, yet creates beauty that time itself cannot replace.",
+              status: "Available",
+              price: "Price on request",
+            },
+            /* Thông số: value giữ tiếng Anh; nhãn lấy từ specLabels */
+            livingSubject: [
+              { key: "livingSubject", value: "Platycerium willinckii 'Nano'" },
+              { key: "propagation", value: "Spore" },
+              { key: "age", value: "2 years 1 month" },
+              { key: "mounted", value: "July 2025" },
+            ],
+            specification: [
+              { key: "glassBox", value: "600×600×800 mm" },
+              { key: "topper", value: "600×600×150 mm" },
+              { key: "stand", value: "260×280×300 mm" },
+              { key: "glass", value: "Clear Glass 8 mm" },
+              { key: "background", value: "Natural Cork Bark" },
+              { key: "ground", value: "Senda Aqua Soil, Live Moss" },
+              { key: "lighting", value: "6500K COB LED 12W" },
+              { key: "photoperiod", value: "12–14 hours/day" },
+              { key: "water", value: "Smart Watering Device" },
+              { key: "ventilation", value: "Intake fan + exhaust fan" },
+              { key: "humidity", value: "Ultrasonic Mist System" },
+              { key: "power", value: "AC 220V / DC 12V / DC 5V" },
+              { key: "weight", value: "approx. 100 kg" },
+              { key: "design", value: "Designed by Shadow Fern" },
+            ],
+            images: [
+              { file: "quiet_full_front.jpg", place: "top",
+                vi: { alt: "QUIET, toàn bộ tác phẩm nhìn thẳng", caption: "Toàn cảnh" },
+                en: { alt: "QUIET, the full work from the front", caption: "Full view" } },
+              { file: "quiet_full_angle.jpg", place: "top",
+                vi: { alt: "QUIET, toàn bộ tác phẩm nhìn nghiêng", caption: "Góc nghiêng" },
+                en: { alt: "QUIET, the full work from an angle", caption: "Side angle" } },
+              { file: "quiet_wide_frond.jpg", place: "wide",
+                vi: { alt: "Cận cảnh những nhành dương xỉ của QUIET", caption: "QUIET, cận cảnh nhành lá" },
+                en: { alt: "Close-up of QUIET's fern fronds", caption: "QUIET, fronds up close" } },
+              { file: "quiet_detail_frond.jpg", place: "detail",
+                vi: { alt: "Chi tiết nhành lá của QUIET", caption: "Chi tiết nhành lá" },
+                en: { alt: "Detail of a QUIET frond", caption: "Frond detail" } },
+              { file: "quiet_moss.jpg", place: "detail",
+                vi: { alt: "Rêu và gỗ dưới chân QUIET", caption: "Rêu và gỗ" },
+                en: { alt: "Moss and wood at the base of QUIET", caption: "Moss and wood" } },
+            ],
+          },
+          {
+            id: "whisper",
+            name: "WHISPER",
+            series: "Wood Series",
+            number: "SF-WS-002",
+            subject: "Platycerium willinckii 'Sailor Mars'",
+            passport: "V1.0",
+            certificate: "cert_whisper.png",
+            vi: {
+              completed: "13/09/2026",
+              story: "WHISPER chuyển động mà không đòi hỏi sự chú ý. Tác phẩm hé lộ chậm rãi, qua hình khối và thời gian.",
+              status: "Còn sẵn",
+              price: "Giá: liên hệ",
+            },
+            en: {
+              completed: "13 September 2026",
+              story: "WHISPER moves without asking for attention. It reveals itself slowly, through form and time.",
+              status: "Available",
+              price: "Price on request",
+            },
+            /* Thông số: value giữ tiếng Anh; nhãn lấy từ specLabels */
+            livingSubject: [
+              { key: "livingSubject", value: "Platycerium willinckii 'Sailor Mars'" },
+              { key: "propagation", value: "Pup" },
+              { key: "age", value: "2 years 3 months" },
+              { key: "mounted", value: "July 2026" },
+            ],
+            specification: [
+              { key: "glassBox", value: "500×500×1400 mm" },
+              { key: "topper", value: "500×500×200 mm" },
+              { key: "stand", value: "400×400×400 mm" },
+              { key: "glass", value: "Ultra Clear Glass 8 mm" },
+              { key: "background", value: "Natural Cork Bark" },
+              { key: "ground", value: "Black Gia Lai Rock, Black Lava Rock, Senda Aqua Soil, Live Moss" },
+              { key: "lighting", value: "6500K PAR38 Full Spectrum 30W" },
+              { key: "photoperiod", value: "12–14 hours/day" },
+              { key: "water", value: "Smart Watering Device" },
+              { key: "ventilation", value: "Intake fan + exhaust fan" },
+              { key: "humidity", value: "Ultrasonic Mist System" },
+              { key: "power", value: "AC 220V / DC 12V / DC 5V" },
+              { key: "weight", value: "approx. 110 kg" },
+              { key: "design", value: "Designed by Shadow Fern" },
+            ],
+            images: [
+              { file: "whisper_full_front.jpg", place: "top",
+                vi: { alt: "WHISPER, cột kính cao nhìn thẳng", caption: "Toàn cảnh" },
+                en: { alt: "WHISPER, the tall glass column from the front", caption: "Full view" } },
+              { file: "whisper_full_gallery.jpg", place: "top",
+                vi: { alt: "WHISPER trưng bày trong gallery", caption: "Trong gallery" },
+                en: { alt: "WHISPER on display in the gallery", caption: "In the gallery" } },
+              { file: "whisper_detail_mist.jpg", place: "detail",
+                vi: { alt: "Nhành cam của WHISPER trong sương", caption: "Nhành cam trong sương" },
+                en: { alt: "WHISPER's orange frond in the mist", caption: "Orange frond in the mist" } },
+              { file: "whisper_detail_frond.jpg", place: "detail",
+                vi: { alt: "Chi tiết nhành lá của WHISPER", caption: "Chi tiết nhành lá" },
+                en: { alt: "Detail of a WHISPER frond", caption: "Frond detail" } },
+              { file: "whisper_moss.jpg", place: "detail",
+                vi: { alt: "Rêu và nền đá của WHISPER", caption: "Rêu và nền đá" },
+                en: { alt: "Moss and stone at the base of WHISPER", caption: "Moss and stone" } },
+            ],
+          },
+        ],
+      };
+      /* ===================== HẾT PHẦN NỘI DUNG ===================== */
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Shadow Fern — Living Artwork</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&display=swap"
+    />
+    <link rel="stylesheet" href="hark.css" />
+    <link rel="stylesheet" href="hark-hero.css" />
+    <style>
+      /* Gallery mood: a fixed dark palette with one warm accent. */
+      :root {
+        color-scheme: dark;
+        --fill-primary-on: #0b0b0b;
+        --text-primary: #f2efe9;
+        --text-secondary: #a8a39b;
+        --fill-primary: #f2efe9;
+        --text-primary-on: #0b0b0b;
+        --fill-tertiary: #151413;
+        --stroke-primary: #f2efe929;
+        --stroke-secondary: #f2efe914;
+        --hover-wash: #f2efe90f;
+        --x-accent: #c8642a;
+        --x-serif: "Cormorant Garamond", "Playfair Display", Georgia, serif;
+      }
+      body { background: #0b0b0b; color: var(--text-primary); }
+      .hero h1, .head h2, .cards h3, .x-mark, .x-quote p { font-family: var(--x-serif); font-weight: var(--weight-regular); letter-spacing: 0.01em; }
+      .hero h1 { font-size: clamp(48px, 8vw, 96px); line-height: 1; }
+      .head h2 { font-size: clamp(34px, 5vw, 56px); line-height: 1.05; }
+      .cards h3 { font-size: 26px; }
+      .section { padding-block: clamp(64px, 10vw, 128px) clamp(24px, 3vw, 40px); }
+
+      .x-head {
+        position: sticky; top: 0; z-index: 20;
+        display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px 24px;
+        padding: 12px 0;
+        background: color-mix(in srgb, #0b0b0b 82%, transparent);
+        -webkit-backdrop-filter: var(--hark-blur); backdrop-filter: var(--hark-blur);
+        border-bottom: 1px solid var(--stroke-secondary);
+      }
+      .x-brand { display: inline-flex; align-items: center; gap: 12px; color: var(--text-primary); text-decoration: none; min-height: var(--tap); }
+      .x-brand img { width: 40px; height: 40px; border-radius: 50%; box-shadow: 0 0 0 1px var(--stroke-primary); }
+      .x-mark { font-size: 22px; letter-spacing: 0.18em; }
+      .x-right { display: flex; align-items: center; flex-wrap: wrap; gap: 4px 20px; }
+      .x-menu { display: flex; flex-wrap: wrap; gap: 4px 20px; }
+      .x-menu a { display: inline-flex; align-items: center; justify-content: center; min-height: var(--tap); min-width: var(--tap); font: var(--type-small); color: var(--text-secondary); text-decoration: none; transition: color var(--dur-quick) ease; }
+      .x-menu a:hover { color: var(--text-primary); }
+      .x-lang {
+        display: inline-flex; align-items: stretch; min-height: var(--tap); padding: 3px; gap: 2px;
+        border: 1px solid var(--stroke-primary); border-radius: var(--r-pill); background: transparent; cursor: pointer;
+      }
+      .x-lang span {
+        display: inline-flex; align-items: center; justify-content: center; min-width: 40px; padding: 0 10px; border-radius: var(--r-pill);
+        color: var(--text-secondary); font: var(--type-tag); letter-spacing: 0.08em;
+        transition: background var(--dur-quick) ease, color var(--dur-quick) ease;
+      }
+      .x-lang:hover span { color: var(--text-primary); }
+      .x-lang span.is-on { background: var(--fill-primary); color: var(--text-primary-on); }
+      @media (max-width: 599px) { .x-menu { gap: 0 16px; } .x-mark { font-size: 18px; } }
+
+      .x-primary { background: var(--x-accent); border-color: var(--x-accent); color: #0b0b0b; }
+      .x-primary[target="_blank"]::after { color: #0b0b0b; }
+      .hero .links { margin-top: 20px; }
+
+      .x-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(12px, 2vw, 24px); margin: 0; align-items: start; }
+      .x-grid--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      @media (max-width: 700px) { .x-grid--3 { grid-template-columns: repeat(2, minmax(0, 1fr)); } .x-grid--3 > :last-child:nth-child(odd) { grid-column: 1 / -1; } }
+      .x-grid figure { margin: 0; }
+      .x-grid img { display: block; width: 100%; height: auto; border-radius: var(--r-m); }
+      .x-grid figcaption { font-size: var(--size-caption); color: var(--text-secondary); padding: 10px 4px 0; }
+      .x-doc img { background: #f2efe9; }
+
+      .x-work { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 56px); align-items: start; }
+      .x-work .prose p:first-child { font-family: var(--x-serif); font-size: clamp(22px, 2.4vw, 28px); line-height: 1.3; }
+      .x-work .breakdown { margin-top: 28px; }
+      .x-avail { margin-top: 20px; font: var(--type-small); color: var(--text-secondary); }
+      .x-avail b { color: var(--text-primary); font-weight: var(--weight-medium); }
+      .x-work .links { margin-top: 16px; }
+      @media (max-width: 900px) { .x-work { grid-template-columns: 1fr; } }
+
+      .x-spec { margin-top: 24px; border-top: 1px solid var(--stroke-primary); border-bottom: 1px solid var(--stroke-primary); }
+      .x-spec__sum {
+        display: flex; align-items: center; justify-content: space-between; gap: 16px;
+        min-height: var(--tap); padding: 8px 0; cursor: pointer; list-style: none;
+        font: var(--type-small); letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-secondary);
+        transition: color var(--dur-quick) ease;
+      }
+      .x-spec__sum::-webkit-details-marker { display: none; }
+      .x-spec__sum::after { content: "+"; font: var(--type-body); color: var(--x-accent); transition: transform var(--dur-quick) var(--ease-out); }
+      .x-spec[open] > .x-spec__sum::after { transform: rotate(45deg); }
+      .x-spec__sum:hover, .x-spec[open] > .x-spec__sum { color: var(--text-primary); }
+      .x-spec__sum:focus-visible { outline: 2px solid var(--x-accent); outline-offset: 2px; border-radius: 4px; }
+      .x-spec__body { padding: 4px 0 20px; }
+      .x-spec__group + .x-spec__group { margin-top: 24px; }
+      .x-spec__title { margin: 0 0 4px; font: var(--type-tag); letter-spacing: 0.08em; text-transform: uppercase; color: var(--x-accent); }
+      .x-spec .breakdown { margin-top: 0; }
+      .x-spec dd { text-align: right; }
+      .band img { height: auto; max-height: 640px; }
+
+      .x-quote { padding-block: clamp(80px, 14vw, 176px); border-top: 1px solid var(--stroke-secondary); text-align: center; }
+      .x-quote p { font-size: clamp(36px, 6vw, 72px); line-height: 1.1; font-style: italic; text-wrap: balance; }
+      .x-quote p::after { content: ""; display: block; width: 40px; height: 2px; margin: 32px auto 0; background: var(--x-accent); }
+
+      .x-foot { display: inline-flex; align-items: center; gap: 12px; }
+      .x-foot img { width: 32px; height: 32px; border-radius: 50%; box-shadow: 0 0 0 1px var(--stroke-primary); }
+    </style>
+  </head>
+  <body>
+    <!-- Kho ảnh: mỗi file ảnh dùng trong SITE_CONTENT cần một dòng ở đây (data-key = tên file không có đuôi). -->
+    <div id="x-media" hidden aria-hidden="true">
+      <img data-key="logo" src="logo.png" alt="" />
+      <img data-key="hero_whisper" src="hero_whisper.jpg" alt="" />
+      <img data-key="quiet_full_front" src="quiet_full_front.jpg" alt="" />
+      <img data-key="quiet_full_angle" src="quiet_full_angle.jpg" alt="" />
+      <img data-key="quiet_wide_frond" src="quiet_wide_frond.jpg" alt="" />
+      <img data-key="quiet_detail_frond" src="quiet_detail_frond.jpg" alt="" />
+      <img data-key="quiet_moss" src="quiet_moss.jpg" alt="" />
+      <img data-key="whisper_full_front" src="whisper_full_front.jpg" alt="" />
+      <img data-key="whisper_full_gallery" src="whisper_full_gallery.jpg" alt="" />
+      <img data-key="whisper_detail_mist" src="whisper_detail_mist.jpg" alt="" />
+      <img data-key="whisper_detail_frond" src="whisper_detail_frond.jpg" alt="" />
+      <img data-key="whisper_moss" src="whisper_moss.jpg" alt="" />
+      <img data-key="cert_quiet" src="cert_quiet.png" alt="" />
+      <img data-key="cert_whisper" src="cert_whisper.png" alt="" />
+      <img data-key="seal_certificate" src="seal_certificate.jpg" alt="" />
+      <img data-key="wax_seal_hands" src="wax_seal_hands.jpg" alt="" />
+    </div>
+    <div class="page" id="top"></div>
+    <script>
+      /* Renders the whole page from SITE_CONTENT. No need to edit below. */
+      (function () {
+        var C = SITE_CONTENT, page = document.getElementById("top");
+        function esc(s) {
+          return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
+            return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+          });
+        }
+        function map(a, f) { return (a || []).map(f).join(""); }
+        /* Image files listed in #x-media are bundled with the page; look them up by name. */
+        var media = {};
+        [].forEach.call(document.querySelectorAll("#x-media img[data-key]"), function (im) { media[im.getAttribute("data-key")] = im.getAttribute("src"); });
+        function src(file) { var k = String(file || "").replace(/\.[a-z0-9]+$/i, ""); return media[k] || file; }
+        function ext(href) { return 'href="' + esc(href) + '" target="_blank" rel="noopener"'; }
+        function fig(im, lang) {
+          var t = im[lang] || {};
+          return '<figure><img src="' + esc(src(im.file)) + '" alt="' + esc(t.alt) + '" />' + (t.caption ? "<figcaption>" + esc(t.caption) + "</figcaption>" : "") + "</figure>";
+        }
+        function grid(list, lang, extra) {
+          if (!list.length) return "";
+          return '<div class="x-grid' + (list.length === 3 ? " x-grid--3" : "") + (extra || "") + '">' + map(list, function (im) { return fig(im, lang); }) + "</div>";
+        }
+        function row(k, v) { return '<div class="row"><dt>' + esc(k) + "</dt><dd>" + esc(v) + "</dd></div>"; }
+        function head(eyebrow, title) {
+          return '<div class="head">' + (eyebrow ? '<p class="head__eyebrow">' + esc(eyebrow) + "</p>" : "") + "<h2>" + esc(title) + "</h2></div>";
+        }
+
+        /* Specifications panel: labels from C.specLabels, values as written. Open state survives the language switch. */
+        var openSpecs = {};
+        function label(key, lang) { var l = (C.specLabels || {})[key]; return l ? (l[lang] || l.en || key) : key; }
+        function specGroup(titleKey, list, lang) {
+          if (!list || !list.length) return "";
+          return '<div class="x-spec__group"><h4 class="x-spec__title">' + esc(label(titleKey, lang)) + "</h4>" +
+            '<div class="breakdown"><dl>' + map(list, function (f) {
+              return '<div class="row"><dt>' + esc(label(f.key, lang)) + '</dt><dd lang="en">' + esc(f.value) + "</dd></div>";
+            }) + "</dl></div></div>";
+        }
+        function specPanel(a, lang) {
+          var body = specGroup("groupSubject", a.livingSubject, lang) + specGroup("groupSpec", a.specification, lang);
+          if (!body) return "";
+          return '<details class="x-spec" data-spec="' + esc(a.id) + '"' + (openSpecs[a.id] ? " open" : "") + ">" +
+            '<summary class="x-spec__sum">' + esc(label("panel", lang)) + "</summary>" +
+            '<div class="x-spec__body">' + body + "</div></details>";
+        }
+
+        function artwork(a, i, L, lang) {
+          var t = a[lang] || {}, imgs = a.images || [];
+          var by = function (p) { return imgs.filter(function (im) { return im.place === p; }); };
+          var wide = by("wide");
+          var id = i === 0 ? ' data-nav="' + esc(L.nav.works) + '"' : "";
+          return '<section class="section" id="' + esc(a.id) + '"' + id + ">" +
+            head(a.series + " · " + a.number, a.name) +
+            '<div class="x-work">' + grid(by("top"), lang) +
+            "<div>" +
+            '<div class="prose">' + map([].concat(t.story || t.intro || []), function (p) { return "<p>" + esc(p) + "</p>"; }) + "</div>" +
+            '<div class="breakdown"><dl>' +
+            row(L.specs.title, a.name) + row(L.specs.series, a.series) + row(L.specs.number, a.number) +
+            row(L.specs.subject, a.subject) + row(L.specs.completed, t.completed) + row(L.specs.passport, a.passport) +
+            "</dl></div>" +
+            specPanel(a, lang) +
+            '<p class="x-avail">' + esc(L.artwork.statusLabel) + ": <b>" + esc(t.status) + "</b> · " + esc(t.price) + "</p>" +
+            '<div class="links"><a class="btn x-primary" ' + ext(C.links.message) + ">" + esc(L.artwork.acquire) + "</a></div>" +
+            "</div></div>" +
+            map(wide, function (im) {
+              var w = im[lang] || {};
+              return '<figure class="band"><img src="' + esc(src(im.file)) + '" alt="' + esc(w.alt) + '" />' + (w.caption ? "<figcaption>" + esc(w.caption) + "</figcaption>" : "") + "</figure>";
+            }) +
+            grid(by("detail"), lang) +
+            "</section>";
+        }
+
+        function render(lang) {
+          var L = C[lang], works = C.artworks || [], first = works[0] ? works[0].id : "top";
+          var names = works.map(function (a) { return a.name; });
+          var joined = names.length > 1 ? names.slice(0, -1).join(", ") + L.ui.works + names[names.length - 1] : names.join("");
+          var certs = works.filter(function (a) { return a.certificate; }).map(function (a) {
+            var o = { file: a.certificate };
+            o[lang] = { alt: L.certificate.altPrefix + " " + a.name, caption: L.certificate.captionPrefix + " " + a.name + " · " + a.number };
+            return o;
+          });
+          var navItems = [[first, L.nav.works], ["living-artwork", L.nav.about], ["chung-nhan", L.nav.certificate], ["so-huu", L.nav.collect], ["ket-noi", L.nav.connect]];
+
+          document.documentElement.lang = lang;
+          document.title = L.pageTitle;
+
+          page.innerHTML =
+            '<header class="x-head">' +
+              '<a class="x-brand" href="#top" aria-label="' + esc(L.ui.home) + '"><img src="' + esc(src(C.images.logo)) + '" alt="' + esc(L.ui.logoAlt) + '" /><span class="x-mark">SHADOW FERN</span></a>' +
+              '<div class="x-right">' +
+                '<nav class="x-menu" aria-label="' + esc(L.ui.menu) + '">' + map(navItems, function (n) { return '<a href="#' + esc(n[0]) + '">' + esc(n[1]) + "</a>"; }) + "</nav>" +
+                '<button type="button" class="x-lang" data-lang="' + (lang === "vi" ? "en" : "vi") + '" aria-label="' + (lang === "vi" ? "Switch to English" : "Chuyển sang tiếng Việt") + '">' +
+                  '<span lang="vi" class="' + (lang === "vi" ? "is-on" : "") + '">VI</span>' +
+                  '<span lang="en" class="' + (lang === "en" ? "is-on" : "") + '">EN</span>' +
+                "</button>" +
+              "</div>" +
+            "</header>" +
+            '<main class="main">' +
+              '<section class="hero">' +
+                '<img class="hero__img" src="' + esc(src(C.images.hero)) + '" alt="' + esc(L.hero.imageAlt) + '" />' +
+                '<div class="hero__copy"><p class="hero__eyebrow">' + esc(L.hero.eyebrow) + "</p><h1>" + esc(L.hero.title) + "</h1>" +
+                '<p class="hero__sub">' + esc(L.hero.subtitle) + "</p>" +
+                '<div class="links"><a class="btn x-primary" href="#' + esc(first) + '">' + esc(L.hero.button) + "</a></div></div>" +
+              "</section>" +
+
+              '<section class="section" id="living-artwork" data-nav="' + esc(L.nav.about) + '">' +
+                head(L.about.eyebrow, L.about.title) +
+                '<div class="prose">' + map(L.about.paragraphs, function (p) { return "<p>" + esc(p) + "</p>"; }) + "</div>" +
+                '<div class="cards">' + map(L.about.cards, function (c) { return "<div><h3>" + esc(c.title) + "</h3><p>" + esc(c.text) + "</p></div>"; }) + "</div>" +
+              "</section>" +
+
+              map(works, function (a, i) { return artwork(a, i, L, lang); }) +
+
+              '<section class="section" id="chung-nhan" data-nav="' + esc(L.nav.certificate) + '">' +
+                head(L.certificate.eyebrow, L.certificate.title) +
+                '<div class="prose">' + map(L.certificate.paragraphs, function (p) { return "<p>" + esc(p) + "</p>"; }) +
+                '<p lang="en"><em>“' + esc(C.certificateLine) + "”</em></p></div>" +
+                grid(certs, lang, " x-doc") +
+                grid(C.images.seals || [], lang) +
+              "</section>" +
+
+              '<section class="x-quote" aria-label="' + esc(L.ui.quote) + '"><p lang="en">' + esc(C.quote) + "</p></section>" +
+
+              '<section class="section" id="so-huu" data-nav="' + esc(L.nav.collect) + '">' +
+                head(L.collect.eyebrow, L.collect.title) +
+                '<div class="steps">' + map(L.collect.steps, function (s, i) {
+                  return '<article class="step"><div class="step__intro"><p class="step__num">' + (i < 9 ? "0" : "") + (i + 1) + "</p></div><div><h3>" + esc(s) + "</h3></div></article>";
+                }) + "</div>" +
+                '<p class="fineprint">' + esc(L.collect.note) + "</p>" +
+              "</section>" +
+
+              '<section class="section" id="ket-noi" data-nav="' + esc(L.nav.connect) + '">' +
+                head(L.connect.eyebrow, L.connect.title) +
+                '<div class="prose"><p>' + esc(L.connect.text.replace("{works}", joined)) + "</p></div>" +
+                '<div class="links"><a class="btn x-primary" ' + ext(C.links.message) + ">" + esc(L.connect.message) + "</a></div>" +
+                '<div class="links">' +
+                  '<a class="btn" ' + ext(C.links.facebook) + ">Facebook</a>" +
+                  '<a class="btn" ' + ext(C.links.instagram) + ">Instagram</a>" +
+                  '<a class="btn" ' + ext(C.links.threads) + ">Threads</a>" +
+                  '<a class="btn" ' + ext(C.links.youtube) + ">YouTube</a>" +
+                "</div>" +
+              "</section>" +
+            "</main>" +
+            '<footer class="foot"><p class="x-foot"><img src="' + esc(src(C.images.logo)) + '" alt="" />' + esc(L.footer) + "</p></footer>";
+
+          [].forEach.call(page.querySelectorAll(".band img"), function (im) {
+            var mark = function () { if (im.naturalHeight > im.naturalWidth) im.parentNode.classList.add("is-portrait"); };
+            if (im.complete) mark(); else im.addEventListener("load", mark);
+          });
+        }
+
+        page.addEventListener("toggle", function (e) {
+          var d = e.target;
+          if (d && d.matches && d.matches("details[data-spec]")) openSpecs[d.getAttribute("data-spec")] = d.open;
+        }, true);
+
+        page.addEventListener("click", function (e) {
+          var b = e.target.closest("[data-lang]");
+          if (!b) return;
+          var lang = b.getAttribute("data-lang");
+          var y = window.scrollY;
+          render(lang);
+          window.scrollTo(0, y);
+          var nb = page.querySelector(".x-lang");
+          if (nb) nb.focus();
+        });
+
+        render("vi");
+      })();
+    </script>
+    <script src="hark.js"></script>
+    <script>
+      document.documentElement.setAttribute("data-theme", "dark");
+    </script>
+  </body>
+</html>
