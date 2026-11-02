@@ -243,6 +243,8 @@
             subject: "Platycerium willinckii 'Nano'",
             passport: "V1.0",
             certificate: "cert_quiet.png",
+            // Video tự chạy (ảnh động): file mp4 trong repo, poster là ảnh hiện lúc đang tải. Xoá dòng này nếu không muốn hiện.
+            video: { file: "quiet_loop.mp4", poster: "quiet_loop_poster.jpg", vi: { caption: "QUIET trong ánh sáng" }, en: { caption: "QUIET in light" } },
             vi: {
               completed: "23/07/2026",
               story: "QUIET là khoảnh khắc chuyển mình vô hình giữa nghỉ ngơi và sinh trưởng. Tác phẩm nhắc rằng thiên nhiên không chạy đua với thời gian, nhưng tạo ra vẻ đẹp mà chính thời gian không thể thay thế.",
@@ -437,6 +439,8 @@
       .x-detail img { aspect-ratio: 4 / 5; object-fit: cover; height: auto; }
       .x-video { margin: clamp(24px, 4vw, 48px) auto; max-width: 420px; }
       .x-video__frame { position: relative; aspect-ratio: 9 / 16; border-radius: var(--r-m); overflow: hidden; background: #000; }
+      .x-video--loop .x-video__frame { aspect-ratio: 2 / 3; }
+      .x-video__frame video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
       .x-video__frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
       .x-video figcaption { font-size: var(--size-caption); color: var(--text-secondary); padding: 10px 4px 0; text-align: center; }
       .x-grid figcaption { font-size: var(--size-caption); color: var(--text-secondary); padding: 10px 4px 0; }
@@ -566,6 +570,7 @@
               var w = im[lang] || {};
               return '<figure class="band"><img src="' + esc(src(im.file)) + '" alt="' + esc(w.alt) + '" />' + (w.caption ? "<figcaption>" + esc(w.caption) + "</figcaption>" : "") + "</figure>";
             }) +
+            (a.video && a.video.file ? '<figure class="x-video x-video--loop"><div class="x-video__frame"><video src="' + esc(src(a.video.file)) + '"' + (a.video.poster ? ' poster="' + esc(src(a.video.poster)) + '"' : '') + ' autoplay muted loop playsinline preload="metadata" aria-label="' + esc(a.name) + '"></video></div>' + ((a.video[lang] || {}).caption ? "<figcaption>" + esc(a.video[lang].caption) + "</figcaption>" : "") + "</figure>" : "") +
             (a.video && a.video.youtube ? '<figure class="x-video"><div class="x-video__frame"><iframe src="https://www.youtube-nocookie.com/embed/' + esc(a.video.youtube) + '?rel=0&playsinline=1" title="' + esc(a.name) + '" loading="lazy" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe></div>' + ((a.video[lang] || {}).caption ? "<figcaption>" + esc(a.video[lang].caption) + "</figcaption>" : "") + "</figure>" : "") +
             grid(by("detail"), lang, " x-detail") +
             "</section>";
