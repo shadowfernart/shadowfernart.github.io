@@ -304,6 +304,8 @@
             subject: "Platycerium willinckii 'Sailor Mars'",
             passport: "V1.0",
             certificate: "cert_whisper.png",
+            // Video YouTube: dán ID video (phần sau /shorts/ hoặc v=). Xoá dòng này nếu không muốn hiện video.
+            video: { youtube: "uzeDiaU4lSk", vi: { caption: "WHISPER chuyển động" }, en: { caption: "WHISPER in motion" } },
             vi: {
               completed: "13/09/2026",
               story: "WHISPER chuyển động mà không đòi hỏi sự chú ý. Tác phẩm hé lộ chậm rãi, qua hình khối và thời gian.",
@@ -433,6 +435,10 @@
       .x-grid img { display: block; width: 100%; height: auto; border-radius: var(--r-m); }
       /* Ảnh detail luôn cùng khung 4:5 (đổi 4 / 5 thành 1 / 1 nếu muốn vuông) */
       .x-detail img { aspect-ratio: 4 / 5; object-fit: cover; height: auto; }
+      .x-video { margin: clamp(24px, 4vw, 48px) auto; max-width: 420px; }
+      .x-video__frame { position: relative; aspect-ratio: 9 / 16; border-radius: var(--r-m); overflow: hidden; background: #000; }
+      .x-video__frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+      .x-video figcaption { font-size: var(--size-caption); color: var(--text-secondary); padding: 10px 4px 0; text-align: center; }
       .x-grid figcaption { font-size: var(--size-caption); color: var(--text-secondary); padding: 10px 4px 0; }
       .x-doc img { background: #f2efe9; }
 
@@ -560,6 +566,7 @@
               var w = im[lang] || {};
               return '<figure class="band"><img src="' + esc(src(im.file)) + '" alt="' + esc(w.alt) + '" />' + (w.caption ? "<figcaption>" + esc(w.caption) + "</figcaption>" : "") + "</figure>";
             }) +
+            (a.video && a.video.youtube ? '<figure class="x-video"><div class="x-video__frame"><iframe src="https://www.youtube-nocookie.com/embed/' + esc(a.video.youtube) + '?rel=0&playsinline=1" title="' + esc(a.name) + '" loading="lazy" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe></div>' + ((a.video[lang] || {}).caption ? "<figcaption>" + esc(a.video[lang].caption) + "</figcaption>" : "") + "</figure>" : "") +
             grid(by("detail"), lang, " x-detail") +
             "</section>";
         }
