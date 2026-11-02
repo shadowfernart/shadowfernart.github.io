@@ -431,6 +431,8 @@
       @media (max-width: 700px) { .x-grid--3 { grid-template-columns: repeat(2, minmax(0, 1fr)); } .x-grid--3 > :last-child:nth-child(odd) { grid-column: 1 / -1; } }
       .x-grid figure { margin: 0; }
       .x-grid img { display: block; width: 100%; height: auto; border-radius: var(--r-m); }
+      /* Ảnh detail luôn cùng khung 4:5 (đổi 4 / 5 thành 1 / 1 nếu muốn vuông) */
+      .x-detail img { aspect-ratio: 4 / 5; object-fit: cover; height: auto; }
       .x-grid figcaption { font-size: var(--size-caption); color: var(--text-secondary); padding: 10px 4px 0; }
       .x-doc img { background: #f2efe9; }
 
@@ -558,7 +560,7 @@
               var w = im[lang] || {};
               return '<figure class="band"><img src="' + esc(src(im.file)) + '" alt="' + esc(w.alt) + '" />' + (w.caption ? "<figcaption>" + esc(w.caption) + "</figcaption>" : "") + "</figure>";
             }) +
-            grid(by("detail"), lang) +
+            grid(by("detail"), lang, " x-detail") +
             "</section>";
         }
 
