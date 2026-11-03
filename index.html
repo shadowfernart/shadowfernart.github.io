@@ -122,8 +122,8 @@
         /* ---------- CHỮ TIẾNG VIỆT ---------- */
         vi: {
           pageTitle: "Shadow Fern — Living Artwork",
-          ui: { home: "Shadow Fern, về đầu trang", logoAlt: "Logo Shadow Fern", menu: "Mục lục", language: "Ngôn ngữ", quote: "Trích dẫn", works: " và " },
-          nav: { works: "Tác phẩm", about: "Living Artwork", certificate: "Chứng nhận", collect: "Sở hữu", connect: "Kết nối" },
+          ui: { home: "Shadow Fern, về đầu trang", logoAlt: "Logo Shadow Fern", menu: "Mục lục", language: "Ngôn ngữ", quote: "Trích dẫn", works: " và ", toLight: "Chuyển sang nền sáng", toDark: "Chuyển sang nền tối" },
+          nav: { works: "Tác phẩm", about: "Living Artwork", studio: "Về Shadow Fern", certificate: "Chứng nhận", collect: "Sở hữu", shipping: "Vận chuyển", connect: "Kết nối" },
           hero: {
             eyebrow: "Shadow Fern · Sài Gòn",
             title: "Living Artwork",
@@ -173,14 +173,37 @@
             text: "Theo dõi để xem {works} thay đổi theo thời gian. Muốn hỏi về tác phẩm, cứ nhắn tin cho Shadow Fern.",
             message: "Nhắn tin cho Shadow Fern",
           },
+          /* ---------- MỤC VỀ SHADOW FERN (About) ---------- */
+          studio: {
+            eyebrow: "Về Shadow Fern",
+            title: "Một studio nhỏ ở Sài Gòn, làm việc cùng thời gian.",
+            paragraphs: [
+              "Shadow Fern là studio nghệ thuật tại TP. Hồ Chí Minh, tạo ra những Living Artwork: tác phẩm nghệ thuật sống, độc bản, đặt trong hộp kính.",
+              "Mỗi tác phẩm được thiết kế và hoàn thiện thủ công tại studio, từ khung gỗ, phông vỏ cây, lớp nền đá và rêu, đến hệ thống ánh sáng, gió, sương và tưới nước giấu kín bên dưới.",
+              "Living Subject của các tác phẩm là Platycerium. Nhưng Shadow Fern không bán cây: thứ studio tạo ra là một tác phẩm tiếp tục lớn lên sau ngày hoàn thành.",
+            ],
+            quote: "Shadow Fern không tạo ra thiên nhiên. Shadow Fern tạo ra cách bạn cảm nhận nó.",
+          },
+          /* ---------- MỤC VẬN CHUYỂN (Shipping) ---------- */
+          shipping: {
+            eyebrow: "Vận chuyển & lắp đặt",
+            title: "Tác phẩm được đưa tới tận nơi và lắp đặt hoàn chỉnh.",
+            items: [
+              { title: "Khu vực", text: "Hiện chỉ giao và lắp đặt tại TP. Hồ Chí Minh." },
+              { title: "Trước khi giao", text: "Studio trao đổi về không gian đặt tác phẩm: vị trí, ánh sáng, nguồn điện 220V và mặt sàn đủ chịu tải (khoảng 100–110 kg)." },
+              { title: "Lắp đặt", text: "Tác phẩm được lắp đặt, cài đặt ánh sáng, gió, sương và hướng dẫn vận hành ngay tại chỗ." },
+              { title: "Sau khi nhận", text: "Tác phẩm nhạy với thay đổi đột ngột. Nếu cần di dời hoặc thay đổi lớn, hãy liên hệ Shadow Fern trước." },
+            ],
+            note: "Chi phí và lịch giao được trao đổi riêng cho từng tác phẩm.",
+          },
           footer: "© 2026 Shadow Fern · Living Artwork · Sài Gòn",
         },
 
         /* ---------- CHỮ TIẾNG ANH ---------- */
         en: {
           pageTitle: "Shadow Fern — Living Artwork",
-          ui: { home: "Shadow Fern, back to top", logoAlt: "Shadow Fern logo", menu: "Contents", language: "Language", quote: "Quote", works: " and " },
-          nav: { works: "Works", about: "Living Artwork", certificate: "Certificate", collect: "Collect", connect: "Connect" },
+          ui: { home: "Shadow Fern, back to top", logoAlt: "Shadow Fern logo", menu: "Contents", language: "Language", quote: "Quote", works: " and ", toLight: "Switch to light mode", toDark: "Switch to dark mode" },
+          nav: { works: "Works", about: "Living Artwork", studio: "About", certificate: "Certificate", collect: "Collect", shipping: "Shipping", connect: "Connect" },
           hero: {
             eyebrow: "Shadow Fern · Saigon",
             title: "Living Artwork",
@@ -229,6 +252,27 @@
             title: "Follow the works as they grow over time.",
             text: "Follow along to watch {works} change over time. To ask about a work, just message Shadow Fern.",
             message: "Message Shadow Fern",
+          },
+          studio: {
+            eyebrow: "About",
+            title: "A small studio in Saigon, working with time.",
+            paragraphs: [
+              "Shadow Fern is an art studio in Ho Chi Minh City creating Living Artwork: one-of-a-kind living works held in glass.",
+              "Each work is designed and finished by hand in the studio, from the wooden frame, cork bark background, stone and moss ground, to the light, air, mist and water systems hidden beneath.",
+              "The Living Subject of each work is a Platycerium. But Shadow Fern doesn't sell plants: what the studio makes is a work that keeps growing after the day it is finished.",
+            ],
+            quote: "Shadow Fern doesn't create nature. Shadow Fern creates the way you feel it.",
+          },
+          shipping: {
+            eyebrow: "Shipping & installation",
+            title: "Each work is delivered and fully installed on site.",
+            items: [
+              { title: "Area", text: "Currently delivered and installed in Ho Chi Minh City only." },
+              { title: "Before delivery", text: "The studio talks through the space with you: placement, light, 220V power and a floor that can bear the load (about 100–110 kg)." },
+              { title: "Installation", text: "The work is installed, its light, air and mist are set up, and operation is explained on site." },
+              { title: "After delivery", text: "The work is sensitive to sudden changes. Please contact Shadow Fern before moving it or making significant changes." },
+            ],
+            note: "Cost and delivery date are arranged individually for each work.",
           },
           footer: "© 2026 Shadow Fern · Living Artwork · Saigon",
         },
@@ -330,7 +374,7 @@
             specification: [
               { key: "glassBox", value: "500×500×1400 mm" },
               { key: "topper", value: "500×500×200 mm" },
-              { key: "stand", value: "400×400×400 mm" },
+              { key: "stand", value: "500×500×400 mm" },
               { key: "glass", value: "Ultra Clear Glass 8 mm" },
               { key: "background", value: "Natural Cork Bark" },
               { key: "ground", value: "Black Gia Lai Rock, Black Lava Rock, Senda Aqua Soil, Live Moss" },
@@ -391,7 +435,31 @@
         --x-accent: #c8642a;
         --x-serif: "Cormorant Garamond", "Playfair Display", Georgia, serif;
       }
-      body { background: #0b0b0b; color: var(--text-primary); }
+      :root { --x-bg: #0b0b0b; --x-doc-bg: #f2efe9; }
+      /* NỀN SÁNG: đổi màu ở đây nếu muốn */
+      :root[data-theme="light"] {
+        color-scheme: light;
+        --x-bg: #f4f1ea;
+        --fill-primary-on: #f4f1ea;
+        --text-primary: #161513;
+        --text-secondary: #5f5a52;
+        --fill-primary: #161513;
+        --text-primary-on: #f4f1ea;
+        --fill-tertiary: #e9e5dc;
+        --stroke-primary: #16151329;
+        --stroke-secondary: #16151314;
+        --hover-wash: #1615130d;
+        --x-accent: #b0551f;
+      }
+      body { background: var(--x-bg); color: var(--text-primary); transition: background 0.6s ease, color 0.6s ease; }
+      .x-theme { display: inline-flex; align-items: center; justify-content: center; width: var(--tap); height: var(--tap); border: 1px solid var(--stroke-primary); border-radius: 50%; background: transparent; color: var(--text-primary); cursor: pointer; font-size: 18px; line-height: 1; }
+      .x-theme:hover { background: var(--hover-wash); }
+      .x-shipgrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(16px, 3vw, 32px); margin-top: 32px; }
+      .x-shipgrid h3 { font-family: var(--x-serif); font-weight: var(--weight-regular); font-size: 24px; margin: 0 0 8px; color: var(--text-primary); }
+      .x-shipgrid p { margin: 0; color: var(--text-secondary); }
+      .x-shipgrid > div { border-top: 1px solid var(--stroke-primary); padding-top: 16px; }
+      @media (max-width: 700px) { .x-shipgrid { grid-template-columns: 1fr; } }
+      .x-studio-quote { margin-top: 32px; font-family: var(--x-serif); font-style: italic; font-size: clamp(22px, 2.6vw, 30px); color: var(--text-primary); }
       .hero h1, .head h2, .cards h3, .x-mark, .x-quote p { font-family: var(--x-serif); font-weight: var(--weight-regular); letter-spacing: 0.01em; }
       .hero h1 { font-size: clamp(48px, 8vw, 96px); line-height: 1; }
       .head h2 { font-size: clamp(34px, 5vw, 56px); line-height: 1.05; }
@@ -402,7 +470,7 @@
         position: sticky; top: 0; z-index: 20;
         display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px 24px;
         padding: 12px 0;
-        background: color-mix(in srgb, #0b0b0b 82%, transparent);
+        background: color-mix(in srgb, var(--x-bg) 82%, transparent);
         -webkit-backdrop-filter: var(--hark-blur); backdrop-filter: var(--hark-blur);
         border-bottom: 1px solid var(--stroke-secondary);
       }
@@ -426,8 +494,8 @@
       .x-lang span.is-on { background: var(--fill-primary); color: var(--text-primary-on); }
       @media (max-width: 599px) { .x-menu { gap: 0 16px; } .x-mark { font-size: 18px; } }
 
-      .x-primary { background: var(--x-accent); border-color: var(--x-accent); color: #0b0b0b; }
-      .x-primary[target="_blank"]::after { color: #0b0b0b; }
+      .x-primary { background: var(--x-accent); border-color: var(--x-accent); color: #fff; }
+      .x-primary[target="_blank"]::after { color: #fff; }
       .hero .links { margin-top: 20px; }
 
       .x-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(12px, 2vw, 24px); margin: 0; align-items: start; }
@@ -576,7 +644,20 @@
             "</section>";
         }
 
+        /* SÁNG / TỐI: mặc định theo giờ Sài Gòn (sáng 06:00–18:00, tối còn lại, giống lịch đèn tác phẩm).
+           Khách bấm nút ☀/☾ thì trang nhớ lựa chọn đó. */
+        var currentLang = "vi";
+        function saigonHour() { var d = new Date(); return (d.getUTCHours() + 7) % 24; }
+        function autoTheme() { var h = saigonHour(); return h >= 6 && h < 18 ? "light" : "dark"; }
+        function themeNow() { return document.documentElement.getAttribute("data-theme") === "light" ? "light" : "dark"; }
+        (function initTheme() {
+          var t = null;
+          try { t = localStorage.getItem("sf-theme"); } catch (e) {}
+          document.documentElement.setAttribute("data-theme", t === "light" || t === "dark" ? t : autoTheme());
+        })();
+
         function render(lang) {
+          currentLang = lang;
           var L = C[lang], works = C.artworks || [], first = works[0] ? works[0].id : "top";
           var names = works.map(function (a) { return a.name; });
           var joined = names.length > 1 ? names.slice(0, -1).join(", ") + L.ui.works + names[names.length - 1] : names.join("");
@@ -585,7 +666,7 @@
             o[lang] = { alt: L.certificate.altPrefix + " " + a.name, caption: L.certificate.captionPrefix + " " + a.name + " · " + a.number };
             return o;
           });
-          var navItems = [[first, L.nav.works], ["living-artwork", L.nav.about], ["chung-nhan", L.nav.certificate], ["so-huu", L.nav.collect], ["ket-noi", L.nav.connect]];
+          var navItems = [[first, L.nav.works], ["living-artwork", L.nav.about], ["ve-shadow-fern", L.nav.studio], ["chung-nhan", L.nav.certificate], ["so-huu", L.nav.collect], ["van-chuyen", L.nav.shipping], ["ket-noi", L.nav.connect]];
 
           document.documentElement.lang = lang;
           document.title = L.pageTitle;
@@ -599,6 +680,7 @@
                   '<span lang="vi" class="' + (lang === "vi" ? "is-on" : "") + '">VI</span>' +
                   '<span lang="en" class="' + (lang === "en" ? "is-on" : "") + '">EN</span>' +
                 "</button>" +
+                '<button type="button" class="x-theme" data-theme-toggle aria-label="' + esc(themeNow() === "dark" ? L.ui.toLight : L.ui.toDark) + '">' + (themeNow() === "dark" ? "☀" : "☾") + "</button>" +
               "</div>" +
             "</header>" +
             '<main class="main">' +
@@ -617,6 +699,12 @@
 
               map(works, function (a, i) { return artwork(a, i, L, lang); }) +
 
+              '<section class="section" id="ve-shadow-fern" data-nav="' + esc(L.nav.studio) + '">' +
+                head(L.studio.eyebrow, L.studio.title) +
+                '<div class="prose">' + map(L.studio.paragraphs, function (p) { return "<p>" + esc(p) + "</p>"; }) + "</div>" +
+                (L.studio.quote ? '<p class="x-studio-quote">“' + esc(L.studio.quote) + "”</p>" : "") +
+              "</section>" +
+
               '<section class="section" id="chung-nhan" data-nav="' + esc(L.nav.certificate) + '">' +
                 head(L.certificate.eyebrow, L.certificate.title) +
                 '<div class="prose">' + map(L.certificate.paragraphs, function (p) { return "<p>" + esc(p) + "</p>"; }) +
@@ -633,6 +721,12 @@
                   return '<article class="step"><div class="step__intro"><p class="step__num">' + (i < 9 ? "0" : "") + (i + 1) + "</p></div><div><h3>" + esc(s) + "</h3></div></article>";
                 }) + "</div>" +
                 '<p class="fineprint">' + esc(L.collect.note) + "</p>" +
+              "</section>" +
+
+              '<section class="section" id="van-chuyen" data-nav="' + esc(L.nav.shipping) + '">' +
+                head(L.shipping.eyebrow, L.shipping.title) +
+                '<div class="x-shipgrid">' + map(L.shipping.items, function (it) { return "<div><h3>" + esc(it.title) + "</h3><p>" + esc(it.text) + "</p></div>"; }) + "</div>" +
+                '<p class="fineprint">' + esc(L.shipping.note) + "</p>" +
               "</section>" +
 
               '<section class="section" id="ket-noi" data-nav="' + esc(L.nav.connect) + '">' +
@@ -661,6 +755,15 @@
         }, true);
 
         page.addEventListener("click", function (e) {
+          var tb = e.target.closest("[data-theme-toggle]");
+          if (tb) {
+            var next = themeNow() === "dark" ? "light" : "dark";
+            document.documentElement.setAttribute("data-theme", next);
+            try { localStorage.setItem("sf-theme", next); } catch (err) {}
+            var y0 = window.scrollY; render(currentLang); window.scrollTo(0, y0);
+            var nt = page.querySelector(".x-theme"); if (nt) nt.focus();
+            return;
+          }
           var b = e.target.closest("[data-lang]");
           if (!b) return;
           var lang = b.getAttribute("data-lang");
@@ -675,8 +778,5 @@
       })();
     </script>
     <script src="hark.js"></script>
-    <script>
-      document.documentElement.setAttribute("data-theme", "dark");
-    </script>
   </body>
 </html>
